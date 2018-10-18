@@ -27,18 +27,40 @@ class ListStories extends Component {
         }.bind(this));
     }
 
+    displayStory(story, index){
+        return(
+            <tr key={ story.id }>
+                <td>{ index+1 }</td>
+                <td><a href={ "/story/" + story.id }>{ story.title }</a></td>
+                <td>{ story.chapter_count }</td>
+                <td>{ story.updatedAt }</td>
+            </tr>
+        )
+    }
 
     render() {
       var storiesData = this.state.stories;
+      console.log(storiesData);
+      //
       const stories = (
-            <ul className="">
-                {   storiesData.map(story => <li key={ story.id }>{story.title} [{story.chapters.length} chapters]({story.url})</li>)}
-            </ul>
+            <table >
+              <thead>
+              <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Number of chapters</th> 
+                <th>Last Updated</th>
+              </tr>
+              </thead>
+              <tbody>
+                { storiesData.map((story, index) =>  this.displayStory(story, index) ) }
+              </tbody>
+            </table>
         );
         return(
             <div className="" id="storyList">
-                <button onClick = {this.handleClick}>Refresh Stories</button>
-                {stories}
+                <button onClick = { this.handleClick }>Refresh Stories</button>
+                { stories }
             </div>
         )
     }
