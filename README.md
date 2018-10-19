@@ -7,3 +7,6 @@ Front end made in React to connect to the [Light Novel Converter API](https://gi
   - Getting metadata
   - Getting chapter list
   - Downloading chapters
+  - Combine all chapters into one file
+  - Convert compilation of chapters into .mobi
+  - Download result
