@@ -15,6 +15,7 @@ class ViewStory extends Component {
         this.handleDownloadClick = this.handleDownloadClick.bind(this);
         this.handleConvertClick = this.handleConvertClick.bind(this);
         this.handleGetResultClick = this.handleGetResultClick.bind(this);
+        this.handleChangeCoverClick = this.handleChangeCoverClick.bind(this);
     }
 
     handleDownloadClick(e) {
@@ -30,6 +31,11 @@ class ViewStory extends Component {
     handleGetResultClick(e){
       e.preventDefault();
       this.getStoryResult(this.state.story_data["title"]);
+    }
+
+    handleChangeCoverClick(e){
+      e.preventDefault();
+      this.props.history.push('/story/' + this.state.story_data['id'] + "/change_cover");
     }
 
     componentDidMount() {
@@ -48,6 +54,7 @@ class ViewStory extends Component {
         "URL" : "url",
         "Working?": "working",
         "Current Status": "current_status",
+        "Cover": "cover"
       }
       let metadataAttributeList = {
         "Genre(s)"   : "genre",
@@ -77,13 +84,30 @@ class ViewStory extends Component {
           value = value.join();
         }
       }
-      
+      if(attribute === 'Cover'){
+        if(value === "undefined"){
+          value = <p src={value}
+                  style={{ width: '10%', heigth: '10%'}}
+                  onClick = { this.handleChangeCoverClick }
+                  alt={value}> 
+                  Edit
+                </p>
+        }
+        else{
+          value = <img src={value}
+                  style={{ width: '10%', heigth: '10%'}}
+                  onClick = { this.handleChangeCoverClick }
+                  alt={value} 
+                />
+        }
+        
+      }
       return(
-            <tr key={ index }>
-                <td>{ attribute }</td>
-                <td>{ value }</td>
-            </tr>
-        )
+          <tr key={ index }>
+              <td>{ attribute }</td>
+              <td>{ value }</td>
+          </tr>
+      )
     }
 
     displayChapters(chapters){
