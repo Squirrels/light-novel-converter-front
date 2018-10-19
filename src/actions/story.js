@@ -68,9 +68,48 @@ export const downloadChapters = (id, callback) => dispatch => {
     var config = {
         headers: {'Authorization': "bearer "+jwtToken}
     };
-    axios.get('/stories/' + id + '/download_chapters', config)
+    axios.get('/stories/' + id + '/download', config)
             .then(res => {
                 callback(res.data);
+            })
+            .catch(err => {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                });
+            });
+}
+
+export const convertStory = (id, callback) => dispatch => {
+    // Is user logged in
+    // Get the JWT token
+    var jwtToken = localStorage.getItem('jwtToken');
+    var config = {
+        headers: {'Authorization': "bearer "+jwtToken}
+    };
+    axios.get('/stories/' + id + '/convert', config)
+            .then(res => {
+                callback(res.data);
+            })
+            .catch(err => {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                });
+            });
+}
+
+export const getStoryResult = (id, callback) => dispatch => {
+    // Is user logged in
+    // Get the JWT token
+    var jwtToken = localStorage.getItem('jwtToken');
+    var config = {
+        responseType: 'blob',
+        headers: {'Authorization': "bearer "+jwtToken}
+    };
+    axios.get('/stories/' + id + '/result', config)
+            .then(res => {
+                callback(res);
             })
             .catch(err => {
                 dispatch({
