@@ -118,3 +118,22 @@ export const getStoryResult = (id, callback) => dispatch => {
                 });
             });
 }
+
+export const changeCover = (id, new_cover, callback) => dispatch => {
+    // Is user logged in
+    // Get the JWT token
+    var jwtToken = localStorage.getItem('jwtToken');
+    var config = {
+        headers: {'Authorization': "bearer "+jwtToken}
+    };
+    axios.put('/stories/' + id, {cover: new_cover}, config)
+            .then(res => {
+                callback(res.data);
+            })
+            .catch(err => {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                });
+            });
+}

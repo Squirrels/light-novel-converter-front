@@ -13,6 +13,7 @@ import Home from './components/Home';
 import ListStories from './components/ListStories';
 import AddStory from './components/AddStory';
 import ViewStory from './components/ViewStory';
+import ChangeCover from './components/ChangeCover';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -39,6 +40,7 @@ class App extends Component {
                 <Route exact path="/stories" component={ ListStories } />
                 <Route exact path="/stories/add" component={ AddStory } />
                 <Route exact path="/story/:id" component={ ViewStory } />
+                <Route exact path="/story/:id/change_cover" component={ ChangeCover } />
                 <div className="container">
                   <Route exact path="/register" component={ Register } />
                   <Route exact path="/login" component={ Login } />
